@@ -45,6 +45,9 @@ var Game = {
 		}
 		return wordArray;
 	},
+	makeBlankWord: function (blankArray){
+		return blankArray.join("");
+	},
 	displayGameWord: function (gameWord){
 		return gameWord.join(" ");
 	},
@@ -70,14 +73,12 @@ var Game = {
 		if (guessIsInWord) {
 			for (var i = 0; i < word.length; i++) {
 				if (guess === word.charAt(i)) {
-					blankArray[i].replace("_", guess);
-					console.log("replaced: " + blankArray[i].replace("_", guess))
+					blankArray.splice(i, 1, guess);
 				}
 			}
-			return blankArray;
-		} else {
-			return blankArray;
 		}
+		// if guess not in word, returns original array, if in word, returns new array.
+		return blankArray;
 	}
 }
 
@@ -87,8 +88,10 @@ var wordToGuess = Game.chooseWord(theList);
 
 // Initialize a blank word to display on page load.
 var theBlankArray = Game.makeBlankArray(wordToGuess);
-var displayBlank = Game.displayGameWord(theBlankArray);
-console.log(displayBlank);
+var noDisplayBlankWord = Game.makeBlankWord(theBlankArray);
+var displayBlankWord = Game.displayGameWord(theBlankArray);
+
+console.log(displayBlankWord);
 
 // every key press, this runs.
 document.onkeydown = function(event){
