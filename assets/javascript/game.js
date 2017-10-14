@@ -18,23 +18,30 @@ var Game = {
 		"discord",
 		"coffee",
 		"cute",
-		"disestablishmentarianism",
-		"four"
+		"antidisestablishmentarianism",
+		"four",
+		"basilica",
+		"drugs",
+		"killing",
+		"oxymoron",
+		"auxymoron",
+		"bells",
+		"billions",
+		"adult",
+		"coders-"
 	],
 	// Takes any keypress and stores it in var letter.
 	guess: function () {
 		var letter = String.fromCharCode(event.keyCode).toLowerCase();
-		document.querySelector("#inputKey").innerHTML = letter;
+		//document.querySelector("#inputKey").innerHTML = letter;
 
 		console.log(letter);
 		return letter;
 	},
 	// Chooses a word from the list.
 	chooseWord: function (list) {
-		//console.log(list);
 		var num = Math.floor((Math.random() * list.length));
-		//console.log(num);
-		console.log(list[num]);
+		//console.log(list[num]);
 		return list[num];
 	},
 	// Takes word and creates word of underscores from it.
@@ -63,7 +70,6 @@ var Game = {
 				letterInWord = true;
 			}
 		}
-
 		// returns true if guess is in word, false if not.
 		console.log(letterInWord);
 		return letterInWord;
@@ -79,7 +85,20 @@ var Game = {
 		}
 		// if guess not in word, returns original array, if in word, returns new array.
 		return blankArray;
+	},
+	// Already guessed? More like function already made.
+	alreadyGuessed: function (wordToFill, theGuess){
+		var letterInWord = false;
+
+		// is guess in word to fill?
+		for (var i = 0; i < wordToFill.length; i++) {
+			if (theGuess === word.charAt(i)) {
+				letterInWord = true
+			}
+		}
+		return letterInWord;
 	}
+	// functions display 
 }
 
 // This is the hangman word.
@@ -91,19 +110,58 @@ var theBlankArray = Game.makeBlankArray(wordToGuess);
 var noDisplayBlankWord = Game.makeBlankWord(theBlankArray);
 var displayBlankWord = Game.displayGameWord(theBlankArray);
 
+// Initialize a place to put wrong guesses.
+var wrongGuesses = [];
+var wrongGuessCount = 0;
+
 console.log(displayBlankWord);
+// When the page loads, it displays the word to be filled.
+window.onload = function(event){
+	document.querySelector('#wordToFill').innerHTML = displayBlankWord;
+}
 
 // every key press, this runs.
-document.onkeydown = function(event){
+document.onkeyup = function(event){
+
+	// GAME LOGIC VARIABLES
+
 	// your guess.
 	var keyPress = Game.guess();
-	
+	//console.log(updatedWord);
+	//var alreadyGuessed = Game.checkWord(updatedWord, keyPress);
 	// checks guess against hangman word.
 	var guessInWord = Game.checkWord(wordToGuess, keyPress);
 
 	// if guess is in word, finds which indices equal keyPress, and replace blank with KeyPress on blank array.
-	var newArray = Game.replaceLetter(guessInWord, keyPress, wordToGuess, theBlankArray);
-	console.log(newArray);
+	var updatedArray = Game.replaceLetter(guessInWord, keyPress, wordToGuess, theBlankArray);
+	var updatedWord = Game.displayGameWord(updatedArray)
+	console.log(updatedWord);
+
+	// if you've already guessed this letter, skip code that increments counters.
+	// var alreadyGuessed = Game.checkWord(updatedWord, keyPress);
+
+	// GAME DISPLAY
+
+
+	document.querySelector("#wordToFill").innerHTML = updatedWord;
+	if (!guessInWord) {
+		//if (Game.checkWord())
+		wrongGuesses.push(keyPress);
+		var something = Game.displayGameWord(wrongGuesses);
+		document.querySelector("#wrongGuess").innerHTML = wrongGuesses;
+		wrongGuessCount++;
+	}
+
+	var guessesLeft = (6 - wrongGuessCount);	
+	console.log(guessesLeft);
+	document.querySelector("#triesLeft").innerHTML = guessesLeft;
+
+	if (guessesLeft === 0) {
+		console.log("You were hanged.");
+		document.querySelector("#youLose").innerHTML = "You Lose!"
+	} else if (guessesLeft === (-20)) {
+		document.querySelector("#youLose").innerHTML = "You know... if all these answers were unique, you'd have won by now."
+	}
 }
 // var keyPress = Game.guess();
 // console.log(keyPress);
