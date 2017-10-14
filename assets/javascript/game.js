@@ -1,13 +1,3 @@
-//alert ("My name is Gandalf");
-
-// document.onkeyup = function(event) {
-//   var letter = String.fromCharCode(event.keyCode).toLowerCase();
-//   //  (more stuff here)
-//   document.querySelector("#inputKey").innerHTML = letter;
-// }
-
-
-
 var Game = {
 	
 	wordList: [
