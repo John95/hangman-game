@@ -87,7 +87,6 @@ var Game = {
 		}
 		return letterInArray;
 	}
-
 }
 
 // Chooses word from a list of words.
@@ -105,7 +104,6 @@ var wrongGuessCount = 0;
 
 var winsCounter = 0;
 var lossesCounter = 0;
-
 var initialGuesses = 9;
 
 console.log(displayBlankWord);
@@ -122,14 +120,12 @@ function reset() {
 	// Initialize a place to put wrong guesses.
 	wrongGuesses = [];
 	wrongGuessCount = 0;
-
 }
 
 // When the page loads, it displays the word to be filled.
 window.onload = function(event){
 	document.querySelector('#wordToFill').innerHTML = displayBlankWord;
 	document.querySelector('#triesLeft').innerHTML = initialGuesses;
-
 }
 
 // every key press, this runs.
@@ -140,7 +136,6 @@ document.onkeyup = function(event){
 	var letterIsGuessed = Game.isGuessed(wrongGuesses, keyPress);
 
 	// GAME LOGIC VARIABLES
-
 	if (letterIsGuessed) {
 
 	} else {
@@ -155,7 +150,6 @@ document.onkeyup = function(event){
 		console.log(updatedWord);
 
 		// GAME DISPLAY
-
 		// Shows the word that you are filling.
 		document.querySelector("#wordToFill").innerHTML = updatedWord;
 		
@@ -187,11 +181,8 @@ document.onkeyup = function(event){
 			lossesCounter++;
 			document.querySelector("#losses").innerHTML = lossesCounter;
 			reset();
-
 		}
 	}
-
 	// CHEAT CODE - Uncomment to reveal what word you are guessing.
-	console.log(wordToGuess);
+	// console.log(wordToGuess);
 }
-
