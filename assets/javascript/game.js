@@ -1,5 +1,4 @@
 var Game = {
-	
 	wordList: [
 		"nth",
 		"ghost",
@@ -139,8 +138,6 @@ document.onkeyup = function(event){
 	if (letterIsGuessed) {
 
 	} else {
-
-		
 		// checks guess against hangman word.
 		var guessInWord = Game.checkWord(wordToGuess, keyPress);
 
