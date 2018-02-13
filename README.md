@@ -1,5 +1,5 @@
-# hangman-game
-A game where you have fun trying to guess a word, and if you don't get it you kill yourself!
+# Hangman Game!
+A game where you have fun trying to guess a word with risk of death!
 
 ## Play it for yourself!
 https://john95.github.io/hangman-game/
